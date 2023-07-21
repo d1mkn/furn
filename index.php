@@ -161,45 +161,50 @@ wp_reset_postdata(); ?>
 </section><!--/.new-arrivals-->
 <!--new-arrivals end -->
 
-<!--sofa-collection start -->
-<section id="sofa-collection">
-	<div class="owl-carousel owl-theme" id="collection-carousel">
-		<div class="sofa-collection collectionbg1">
-			<div class="container">
-				<div class="sofa-collection-txt">
-					<h2>unlimited sofa collection</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-						ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-						laboris nisi ut aliquip ex ea commodo consequat.
-					</p>
-					<div class="sofa-collection-price">
-						<h4>strting from <span>$ 199</span></h4>
+<?php
+$args = array(
+	'post_type' => 'collection',
+	'posts_per_page' => -1,
+);
+
+$collection_query = new WP_Query($args);
+$i = 1;
+
+if ($collection_query->have_posts()): ?>
+	<!--sofa-collection start -->
+	<section id="sofa-collection">
+		<div class="owl-carousel owl-theme" id="collection-carousel">
+			<?php while ($collection_query->have_posts()):
+				$collection_query->the_post();
+				$post_image_id = get_post_meta(get_the_ID(), 'collection_image', true);
+				$collection_image = wp_get_attachment_image_src($post_image_id, 'full')[0];
+				$collection_title = get_post_meta(get_the_ID(), 'collection_title', true);
+				$collection_description = get_post_meta(get_the_ID(), 'collection_description', true);
+				$min_price = get_post_meta(get_the_ID(), 'min_price', true); ?>
+
+				<div class="sofa-collection" style="background:url(<?php echo $collection_image ?>) no-repeat;">
+					<div class="container">
+						<div class="sofa-collection-txt">
+							<h2>
+								<?php echo $collection_title ?>
+							</h2>
+							<p>
+								<?php echo $collection_description ?>
+							</p>
+							<div class="sofa-collection-price">
+								<h4>strting from <span>
+										<?php echo $min_price ?>
+									</span></h4>
+							</div>
+							<button class="btn-cart welcome-add-cart sofa-collection-btn" onclick="window.location.href='#'">
+								view more
+							</button>
+						</div>
 					</div>
-					<button class="btn-cart welcome-add-cart sofa-collection-btn" onclick="window.location.href='#'">
-						view more
-					</button>
-				</div>
-			</div>
-		</div><!--/.sofa-collection-->
-		<div class="sofa-collection collectionbg2">
-			<div class="container">
-				<div class="sofa-collection-txt">
-					<h2>unlimited dainning table collection</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-						ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-						laboris nisi ut aliquip ex ea commodo consequat.
-					</p>
-					<div class="sofa-collection-price">
-						<h4>strting from <span>$ 299</span></h4>
-					</div>
-					<button class="btn-cart welcome-add-cart sofa-collection-btn" onclick="window.location.href='#'">
-						view more
-					</button>
-				</div>
-			</div>
-		</div><!--/.sofa-collection-->
+				</div><!--/.sofa-collection-->
+				<?php $i += 1 ?>
+			<?php endwhile;
+endif ?>
 	</div><!--/.collection-carousel-->
 
 </section><!--/.sofa-collection-->
