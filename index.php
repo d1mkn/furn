@@ -82,6 +82,7 @@ if ($populer_query->have_posts()): ?>
 						<?php endif ?>
 					<?php $i += 1;
 					endwhile;
+					unset($i);
 					wp_reset_postdata(); ?>
 				</div>
 			</div>
@@ -202,7 +203,8 @@ if ($collection_query->have_posts()): ?>
 					</div>
 				</div><!--/.sofa-collection-->
 			<?php endwhile;
-endif ?>
+endif;
+wp_reset_postdata(); ?>
 	</div><!--/.collection-carousel-->
 
 </section><!--/.sofa-collection-->
@@ -265,14 +267,16 @@ if ($featured_products_query->have_posts()): ?>
 							</div>
 						</div>
 						<?php
-					endwhile;
-endif; ?>
+					endwhile; ?>
+				</div>
 			</div>
-		</div>
-	</div><!--/.container-->
+		</div><!--/.container-->
 
-</section><!--/.feature-->
-<!--feature end -->
+	</section><!--/.feature-->
+	<!--feature end -->
+<?php endif;
+wp_reset_postdata(); ?>
+
 
 <?php
 $args = array(
@@ -324,51 +328,52 @@ if ($blog_post_query->have_posts()): ?>
 
 						</div>
 						<?php
-					endwhile;
-endif; ?>
-
+					endwhile; ?>
+				</div>
 			</div>
-		</div>
-	</div><!--/.container-->
+		</div><!--/.container-->
 
-</section><!--/.blog-->
-<!--blog end -->
+	</section><!--/.blog-->
+	<!--blog end -->
 
-<!-- clients strat -->
-<section id="clients" class="clients">
-	<div class="container">
-		<div class="owl-carousel owl-theme" id="client">
-			<div class="item">
-				<a href="#">
-					<img src="<?php bloginfo('template_url') ?>/assets/images/clients/c1.png" alt="brand-image" />
-				</a>
-			</div><!--/.item-->
-			<div class="item">
-				<a href="#">
-					<img src="<?php bloginfo('template_url') ?>/assets/images/clients/c2.png" alt="brand-image" />
-				</a>
-			</div><!--/.item-->
-			<div class="item">
-				<a href="#">
-					<img src="<?php bloginfo('template_url') ?>/assets/images/clients/c3.png" alt="brand-image" />
-				</a>
-			</div><!--/.item-->
-			<div class="item">
-				<a href="#">
-					<img src="<?php bloginfo('template_url') ?>/assets/images/clients/c4.png" alt="brand-image" />
-				</a>
-			</div><!--/.item-->
-			<div class="item">
-				<a href="#">
-					<img src="<?php bloginfo('template_url') ?>/assets/images/clients/c5.png" alt="brand-image" />
-				</a>
-			</div><!--/.item-->
-		</div><!--/.owl-carousel-->
+<?php endif;
+wp_reset_postdata(); ?>
 
-	</div><!--/.container-->
 
-</section><!--/.clients-->
-<!-- clients end -->
+<?php
+$args = array(
+	'post_type' => 'client',
+	'posts_per_page' => -1,
+	'order' => 'ASC'
+);
+
+$client_query = new WP_Query($args);
+
+if ($client_query->have_posts()): ?>
+	<!-- clients strat -->
+	<section id="clients" class="clients">
+		<div class="container">
+			<div class="owl-carousel owl-theme" id="client">
+				<?php while ($client_query->have_posts()):
+					$client_query->the_post();
+					$post_image_id = get_post_meta(get_the_ID(), 'client_image', true);
+					$client_image = wp_get_attachment_image_src($post_image_id, 'full')[0]; ?>
+
+					<div class="item">
+						<a href="#">
+							<img src="<?php echo $client_image ?>" alt="brand-image" />
+						</a>
+					</div><!--/.item-->
+				<?php endwhile; ?>
+			</div><!--/.owl-carousel-->
+
+		</div><!--/.container-->
+
+	</section><!--/.clients-->
+	<!-- clients end -->
+<?php endif;
+wp_reset_postdata(); ?>
+
 
 <!--newsletter strat -->
 <section id="newsletter" class="newsletter">

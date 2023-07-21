@@ -127,6 +127,7 @@
 						<?php
 						$i += 1;
 					endwhile;
+					unset($i);
 					wp_reset_postdata();
 				endif;
 				?>
