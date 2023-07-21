@@ -53,6 +53,14 @@ function furn_setup()
 			'menu-1' => esc_html__('Primary', 'furn'),
 		)
 	);
+	function add_additional_class_on_li($classes, $item, $args)
+	{
+		if (isset($args->add_li_class)) {
+			$classes[] = $args->add_li_class;
+		}
+		return $classes;
+	}
+	add_filter('nav_menu_css_class', 'add_additional_class_on_li', 1, 3);
 
 	/*
 	 * Switch default core markup for search form, comment form, and comments

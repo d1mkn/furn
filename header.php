@@ -296,15 +296,32 @@
 						<!-- End Header Navigation -->
 
 						<!-- Collect the nav links, forms, and other content for toggling -->
-						<div class="collapse navbar-collapse menu-ui-design" id="navbar-menu">
-							<ul class="nav navbar-nav navbar-center" data-in="fadeInDown" data-out="fadeOutUp">
-								<li class=" scroll active"><a href="#home">home</a></li>
-								<li class="scroll"><a href="#new-arrivals">new arrival</a></li>
-								<li class="scroll"><a href="#feature">features</a></li>
-								<li class="scroll"><a href="#blog">blog</a></li>
-								<li class="scroll"><a href="#newsletter">contact</a></li>
-							</ul><!--/.nav -->
-						</div><!-- /.navbar-collapse -->
+						<?php
+						if (has_nav_menu('menu-1')) { ?>
+							<div id="navbar-menu" class="collapse navbar-collapse menu-ui-design" data-in="fadeInDown"
+								data-out="fadeOutUp">
+								<?php
+								wp_nav_menu(
+									array(
+										'container' => '',
+										'menu_class' => 'nav navbar-nav navbar-center',
+										'menu_id' => '',
+										'echo' => true,
+										'add_li_class' => 'scroll'
+									)
+								); ?>
+							</div>
+						<?php } else { ?>
+							<div class="collapse navbar-collapse menu-ui-design" id="navbar-menu">
+								<ul class="nav navbar-nav navbar-center" data-in="fadeInDown" data-out="fadeOutUp">
+									<li class="scroll active"><a href="#home">home</a></li>
+									<li class="scroll"><a href="#new-arrivals">new arrival</a></li>
+									<li class="scroll"><a href="#feature">features</a></li>
+									<li class="scroll"><a href="#blog">blog</a></li>
+									<li class="scroll"><a href="#newsletter">contact</a></li>
+								</ul><!--/.nav -->
+							</div><!-- /.navbar-collapse -->
+						<?php } ?>
 					</div><!--/.container-->
 				</nav><!--/nav-->
 				<!-- End Navigation -->
