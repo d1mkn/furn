@@ -1,34 +1,32 @@
-<?php
-/**
- * The template for displaying the footer
- *
- * Contains the closing of the #content div and all content after.
- *
- * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
- *
- * @package furn
- */
+<!--footer start-->
+<footer id="footer" class="footer">
+	<div class="container">
+		<div class="hm-footer-copyright text-center">
+			<div class="footer-social">
+				<a href="#"><i class="fa fa-facebook"></i></a>
+				<a href="#"><i class="fa fa-instagram"></i></a>
+				<a href="#"><i class="fa fa-linkedin"></i></a>
+				<a href="#"><i class="fa fa-pinterest"></i></a>
+				<a href="#"><i class="fa fa-behance"></i></a>
+			</div>
+			<p>
+				&copy;copyright. designed and developed by <a href="https://www.themesine.com/">themesine</a>
+			</p><!--/p-->
+		</div><!--/.text-center-->
+	</div><!--/.container-->
 
-?>
+	<div id="scroll-Top">
+		<div class="return-to-top">
+			<i class="fa fa-angle-up " id="scroll-top" data-toggle="tooltip" data-placement="top" title=""
+				data-original-title="Back to Top" aria-hidden="true"></i>
+		</div>
 
-	<footer id="colophon" class="site-footer">
-		<div class="site-info">
-			<a href="<?php echo esc_url( __( 'https://wordpress.org/', 'furn' ) ); ?>">
-				<?php
-				/* translators: %s: CMS name, i.e. WordPress. */
-				printf( esc_html__( 'Proudly powered by %s', 'furn' ), 'WordPress' );
-				?>
-			</a>
-			<span class="sep"> | </span>
-				<?php
-				/* translators: 1: Theme name, 2: Theme author. */
-				printf( esc_html__( 'Theme: %1$s by %2$s.', 'furn' ), 'furn', '<a href="http://underscores.me/">Underscores.me</a>' );
-				?>
-		</div><!-- .site-info -->
-	</footer><!-- #colophon -->
-</div><!-- #page -->
-
-<?php wp_footer(); ?>
-
+	</div><!--/.scroll-Top-->
+	<?php
+	wp_footer()
+		?>
+</footer><!--/.footer-->
+<!--footer end-->
 </body>
+
 </html>
