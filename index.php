@@ -258,7 +258,9 @@ if ($featured_products_query->have_posts()): ?>
 									<h3><a href="#">
 											<?php echo $product_title ?>
 										</a></h3>
-									<h5><?php echo $product_price ?></h5>
+									<h5>
+										<?php echo $product_price ?>
+									</h5>
 								</div>
 							</div>
 						</div>
@@ -272,63 +274,59 @@ endif; ?>
 </section><!--/.feature-->
 <!--feature end -->
 
-<!--blog start -->
-<section id="blog" class="blog">
-	<div class="container">
-		<div class="section-header">
-			<h2>latest blog</h2>
-		</div><!--/.section-header-->
-		<div class="blog-content">
-			<div class="row">
-				<div class="col-sm-4">
-					<div class="single-blog">
-						<div class="single-blog-img">
-							<img src="<?php bloginfo('template_url') ?>/assets/images/blog/b1.jpg" alt="blog image">
-							<div class="single-blog-img-overlay"></div>
-						</div>
-						<div class="single-blog-txt">
-							<h2><a href="#">Why Brands are Looking at Local Language</a></h2>
-							<h3>By <a href="#">Robert Norby</a> / 18th March 2018</h3>
-							<p>
-								Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
-								consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt....
-							</p>
-						</div>
-					</div>
+<?php
+$args = array(
+	'post_type' => 'blog-post',
+	'posts_per_page' => -1,
+	'order' => 'ASC'
+);
 
-				</div>
-				<div class="col-sm-4">
-					<div class="single-blog">
-						<div class="single-blog-img">
-							<img src="<?php bloginfo('template_url') ?>/assets/images/blog/b2.jpg" alt="blog image">
-							<div class="single-blog-img-overlay"></div>
+$blog_post_query = new WP_Query($args);
+
+if ($blog_post_query->have_posts()): ?>
+	<!--blog start -->
+	<section id="blog" class="blog">
+		<div class="container">
+			<div class="section-header">
+				<h2>latest blog</h2>
+			</div><!--/.section-header-->
+			<div class="blog-content">
+				<div class="row">
+					<?php while ($blog_post_query->have_posts()):
+						$blog_post_query->the_post();
+						$post_image_id = get_post_meta(get_the_ID(), 'post_image', true);
+						$post_image = wp_get_attachment_image_src($post_image_id, 'full')[0];
+						$post_title = get_post_meta(get_the_ID(), 'title', true);
+						$post_author = get_post_meta(get_the_ID(), 'author', true);
+						$post_date = get_the_date('jS F Y', $post);
+						$post_summary = get_post_meta(get_the_ID(), 'summary', true); ?>
+
+						<div class="col-sm-4">
+							<div class="single-blog">
+								<div class="single-blog-img">
+									<img src="<?php echo $post_image ?>" alt="blog image">
+									<div class="single-blog-img-overlay"></div>
+								</div>
+								<div class="single-blog-txt">
+									<h2><a href="#">
+											<?php echo $post_title ?>
+										</a></h2>
+									<h3>By <a href="#">
+											<?php echo $post_author ?>
+										</a> /
+										<?php echo $post_date ?>
+									</h3>
+									<p>
+										<?php echo $post_summary ?>
+									</p>
+								</div>
+							</div>
+
 						</div>
-						<div class="single-blog-txt">
-							<h2><a href="#">Why Brands are Looking at Local Language</a></h2>
-							<h3>By <a href="#">Robert Norby</a> / 18th March 2018</h3>
-							<p>
-								Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
-								consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt....
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-4">
-					<div class="single-blog">
-						<div class="single-blog-img">
-							<img src="<?php bloginfo('template_url') ?>/assets/images/blog/b3.jpg" alt="blog image">
-							<div class="single-blog-img-overlay"></div>
-						</div>
-						<div class="single-blog-txt">
-							<h2><a href="#">Why Brands are Looking at Local Language</a></h2>
-							<h3>By <a href="#">Robert Norby</a> / 18th March 2018</h3>
-							<p>
-								Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
-								consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt....
-							</p>
-						</div>
-					</div>
-				</div>
+						<?php
+					endwhile;
+endif; ?>
+
 			</div>
 		</div>
 	</div><!--/.container-->
